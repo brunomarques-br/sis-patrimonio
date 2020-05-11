@@ -1,0 +1,106 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Lançamentos</title>
+</h:head>
+<h:body style="background-color: #E8E8E8;">
+	<h1 style="text-align:center; color: green">Lançamentos:</h1>
+	
+	
+	<h:form >
+		<h:panelGrid columns="2" style="margin-left: 500px;">
+			<p:outputLabel value="Dia: " />
+			<p:inputText value="#{consumirBean.dia}" />
+		
+			<p:outputLabel value="Mês: " />
+			<p:inputText value="#{consumirBean.mes}" />
+		
+			<p:outputLabel value="Ano: " />
+			<p:inputText value="#{consumirBean.ano}" />
+		
+			<p:outputLabel value="Descrição: " />
+			<p:inputText value="#{consumirBean.descricao}" />
+		
+			<p:outputLabel value="Valor:  " />
+			<p:inputNumber value="#{consumirBean.valor}" />
+		
+			<p:outputLabel value="Pago: " />
+			<p:inputText value="#{consumirBean.pg}" />
+		</h:panelGrid>
+		<br/>
+			<center><p:commandButton action="#{consumirBean.enviaDados()}" ajax="true" value="Enviar Dados" icon="ui-icon-check" style="width: 180px;">
+				<p:ajax update=":formularioId:tabelaId" />
+			 </p:commandButton></center>
+	</h:form>
+	
+	<h:form id="formularioId">
+	<p:dataTable value="#{consumirBean.pegaDados}" id="tabelaId"  var="f" style="margin-right:auto; margin-left:auto;">
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="ID"/>
+			</f:facet>
+			<center><h:outputText value="#{f.id}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Dia"/>
+			</f:facet>
+			<center><h:outputText value="#{f.dia}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Mês"/>
+			</f:facet>
+			<center><h:outputText value="#{f.mes}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Ano"/>
+			</f:facet>
+			<center><h:outputText value="#{f.ano}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Descrição"/>
+			</f:facet>
+			<center><h:outputText value="#{f.descricao}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Valor"/>
+			</f:facet>
+			<center><h:outputText value="#{f.valor}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Pagamento"/>
+			</f:facet>
+			<center><h:outputText value="#{f.pg}"/></center>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				 <h:outputText value="Ações"/>
+			</f:facet>
+			<p:commandButton value="Excluir" action="#{consumirBean.apagaDados(f.id)}" ajax="true"><p:ajax update=":formularioId:tabelaId" /></p:commandButton>
+		</p:column>
+	
+	</p:dataTable>
+	</h:form>
+	<script>
+		function reload(){
+			alert("Atualize a página para exibir o novo registro!")
+			}
+	
+	</script>
+	
+</h:body>
+</html>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="patrimonio-frontend:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>patrimonio-frontend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="patrimonio-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="patrimonio-frontend:war exploded" />
+    </root>
+  </artifact>
+</component>
