@@ -19,6 +19,9 @@ public class PatrimonioDTO implements Serializable {
     private String descricao;
 
     @Getter
+    private Integer idMarca;
+
+    @Getter
     private String marca;
 
     public PatrimonioDTO() {
@@ -29,6 +32,8 @@ public class PatrimonioDTO implements Serializable {
         this.numTombo = patrimonio.getNumTombo();
         this.nome = patrimonio.getNome();
         this.descricao = patrimonio.getDescricao();
+        if (patrimonio.getMarca().getIdMarca() != null)
+            this.idMarca = patrimonio.getMarca().getIdMarca();
         if (!patrimonio.getMarca().getNome().equals(""))
             this.marca = patrimonio.getMarca().getNome();
     }
