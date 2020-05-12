@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:decorate template="/tema/layout.xhtml">
+    <ui:define name="titulo">
+        Gerenciar Patrimônios
+    </ui:define>
+    <ui:define name="centro">
+        <h:form id="formListagem">
+            <p:panel header="Patrimonios - Listagem">
+                <p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+                             paginator="true" value="#{patrimonioBean.listPatrimonios}" var="obj" rows="10">
+                    <f:facet name="header">
+                        <p:commandButton value="Novo" actionListener="#{patrimonioBean.newPatrimonio}" oncomplete="PF('dialogo').show();"
+                                         update=":mensagem :formCadastro:painel">
+                            <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                        </p:commandButton>
+                    </f:facet>
+
+                    <p:column headerText="N. Tombo">
+                        <h:outputText value="#{obj.numTombo}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{obj.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{obj.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Marca">
+                        <h:outputText value="#{obj.marca}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{patrimonioBean.deletePatrimonio}"
+                                         update=":mensagem :formListagem:tabela">
+                            <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert"/>
+                            <f:attribute name="patrimonioSelecionado" value="#{obj}"/>
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         actionListener="#{patrimonioBean.loadUpdateForm}"
+                                         update=":mensagem :formCadastro:painel"
+                                         oncomplete="PF('dialogo').show();">
+                            <f:attribute name="patrimonioSelecionado" value="#{obj}"/>
+                            <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog global="true" appendTo="@(body)">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <p:dialog header="Patrimonio - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false" appendTo="@(body)">
+            <h:form id="formCadastro">
+                <h:panelGrid id="painel" columns="2">
+
+                    <p:outputLabel for="nome" value="Nome:"/>
+                    <p:inputText id="nome" maxlength="50" size="30"
+                                 value="#{patrimonioBean.patrimonioDTO.nome}" required="true"
+                                 requiredMessage="O campo 'Nome' é obrigatório"/>
+
+                    <p:outputLabel for="descricao" value="Descrição:"/>
+                    <p:inputText id="descricao" maxlength="300" size="30"
+                                 value="#{patrimonioBean.patrimonioDTO.descricao}" required="true"
+                                 requiredMessage="O campo 'Descrição' é obrigatório"/>
+
+                    <p:outputLabel for="marca" value="Marca:" />
+                    <p:selectOneMenu id="marca" filter="true" value="#{patrimonioBean.patrimonioDTO.idMarca}" converter="omnifaces.SelectItemsConverter" required="true"
+                                     requiredMessage="O campo 'Marca' é obrigatório">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma marca" />
+                        <f:selectItems value="#{patrimonioBean.listMarcas}" var="marca" itemValue="#{marca.idMarca}" itemLabel="#{marca.nome}" />
+                    </p:selectOneMenu>
+
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar" actionListener="#{patrimonioBean.updatePatrimonio}" update=":mensagem :formCadastro:painel :formListagem:tabela"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:decorate>
+</html>

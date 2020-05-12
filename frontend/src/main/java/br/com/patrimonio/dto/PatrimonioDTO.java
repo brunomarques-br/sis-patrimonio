@@ -24,12 +24,20 @@ public class PatrimonioDTO implements Serializable {
 
     @Getter
     @Setter
-    private MarcaDTO marca;
+    private Integer idMarca;
 
-    public PatrimonioDTO(Integer numTombo, String nome, String descricao, MarcaDTO marca) {
+    @Getter
+    @Setter
+    private String marca;
+
+    public PatrimonioDTO() {
+    }
+
+    public PatrimonioDTO(Integer numTombo, String nome, String descricao, Integer idMarca, String marca) {
         this.numTombo = numTombo;
         this.nome = nome;
         this.descricao = descricao;
+        this.idMarca = idMarca;
         this.marca = marca;
     }
 

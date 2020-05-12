@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title>
+        <ui:insert name="titulo">Desafio SOS - Tecnologia, Sistema Gerenciador de Patrimônios</ui:insert>
+    </title>
+
+    <h:outputStylesheet library="css" name="style.css"/>
+
+</h:head>
+<h:body>
+    <p:growl id="mensagem"/>
+    <div align="center">
+        <p:layout>
+            <p:layoutUnit position="north" size="30" resizable="true">
+                <h:outputText value="Desafio SOS - Tecnologia, Sistema Gerenciador de Patrimônios"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="250" resizable="true">
+                <ui:insert name="menu">
+                    <h:form>
+                        <p:menu style="width:95%!important;">
+                            <p:submenu label="Administrativo">
+                                <p:menuitem value="Gerenciar Marcas" outcome="/pages/marcas" icon="ui-icon-gear"/>
+                                <p:menuitem value="Gerenciar Patrimônios" outcome="/pages/patrimonios" icon="ui-icon-gear"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="true">
+                <ui:insert name="centro">
+                    O que estiver aqui será substituido!
+                </ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </div>
+</h:body>
+</html>
